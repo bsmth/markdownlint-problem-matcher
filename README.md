@@ -28,7 +28,7 @@ jobs:
       - name: Install Deps
         run: npm ci
       - name: Markdownlint problem matcher
-        uses: bsmth/markdownlint-problem-matcher@v3
+        uses: bsmth/markdownlint-problem-matcher@v1
       - name: Lint Markdown
         run: npm test
 ```
@@ -42,3 +42,7 @@ jobs:
 ## License
 
 The scripts and documentation in this project are released under the [MIT License](LICENSE)
+
+## Attribution
+
+Based on [xt0rted/markdownlint-problem-matcher](https://github.com/xt0rted/markdownlint-problem-matcher) who you can consider [sponsoring on GitHub](https://github.com/sponsors/xt0rted).

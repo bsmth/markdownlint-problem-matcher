@@ -37,7 +37,7 @@
     "clean": "rm -rf ./node_modules ./dist ./lib",
     "format": "prettier -w ./",
     "lint": "eslint ./ && prettier -c ./ && tsc --noEmit",
-    "package": "ncc build src/main.ts --source-map --license license.txt",
+    "package": "ncc build src/main.ts -o dist --source-map --license licenses.txt",
     "pretest": "npm run lint",
     "release": "npm run package && git add -f ./dist/",
     "test": "node --import tsx --test ./test/matcher.test.ts"

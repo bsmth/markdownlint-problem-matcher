@@ -1,10 +1,6 @@
 name: "Problem Matcher for markdownlint"
 description: "Sets up a problem matcher for markdownlint that's used to create annotations for violations"
 
-branding:
-  icon: "git-merge"
-  color: "green"
-
 inputs:
   action:
     description: "The action to take on the problem matcher (add or remove)"
