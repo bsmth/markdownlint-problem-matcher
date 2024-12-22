@@ -1,69 +1,38 @@
-name: CI
+name: Continuous Integration
 
 on:
   pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
-env:
-  FORCE_COLOR: 3
+permissions:
+  contents: read
 
 jobs:
-  lint:
+  test-typescript:
+    name: TypeScript Tests
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4.2.2
-
-      - name: Install Node
-        uses: actions/setup-node@v4.1.0
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
         with:
-          node-version: 16
+          persist-credentials: false
 
-      - run: npm ci
-
-      - run: npm run package
-
-      - uses: ./
-
-      - run: npm run markdownlint
-
-      - uses: ./
-        if: success() || failure()
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v4
         with:
-          action: remove
+          node-version-file: .nvmrc
+          cache: npm
 
-  build:
-    runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        node:
-          - 20
-          - 21
-
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4.2.2
-
-      - name: Install Node
-        uses: actions/setup-node@v4.1.0
-        with:
-          node-version: ${{ matrix.node }}
-
-      - run: npm ci
-
-      - run: npm run lint
-
-      - run: npm run build
-
-      - run: npm test
-
-      - run: npm run package
+      - name: Install Dependencies
+        id: npm-ci
+        run: npm ci
+      - name: Test
+        id: npm-ci-test
+        run: npm run test

@@ -1,28 +1,43 @@
 # Problem Matcher for markdownlint-cli
 
-[![CI](https://github.com/xt0rted/markdownlint-problem-matcher/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/xt0rted/markdownlint-problem-matcher/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/xt0rted/markdownlint-problem-matcher/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/xt0rted/markdownlint-problem-matcher/actions/workflows/codeql-analysis.yml)
-
 Adds a problem matcher that will detect errors from [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli) and create annotations for them.
 
 ## Usage
 
 ```yml
-on: push
+name: Test
+
+on:
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: xt0rted/markdownlint-problem-matcher@v3
-      - run: markdownlint **/*.md --ignore node_modules
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - name: Install Deps
+        run: npm ci
+      - name: Markdownlint problem matcher
+        uses: bsmth/markdownlint-problem-matcher@v3
+      - name: Lint Markdown
+        run: npm test
 ```
 
 ## Options
 
-Name | Allowed values | Description
--- | -- | --
-`action` | `add` (default), `remove` | If the problem matcher should be registered or removed
+| Name     | Allowed values            | Description                                            |
+| -------- | ------------------------- | ------------------------------------------------------ |
+| `action` | `add` (default), `remove` | If the problem matcher should be registered or removed |
 
 ## License
 

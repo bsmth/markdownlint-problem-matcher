@@ -1,11 +1,8 @@
-name: "Problem Matcher for markdownlint-cli"
-
-description: "Sets up a problem matcher for markdownlint-cli that's used to create annotations for violations"
-
-author: "xt0rted"
+name: "Problem Matcher for markdownlint"
+description: "Sets up a problem matcher for markdownlint that's used to create annotations for violations"
 
 branding:
-  icon: "command"
+  icon: "git-merge"
   color: "green"
 
 inputs:
