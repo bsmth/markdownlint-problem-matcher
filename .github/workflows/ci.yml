@@ -24,16 +24,12 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v4.1.0
         with:
-          node-version: 16
+          node-version-file: ".nvmrc"
 
       - run: npm ci
-
       - run: npm run package
-
       - uses: ./
-
-      - run: npm run markdownlint
-
+      - run: npm run markdownlint-cli2
       - uses: ./
         if: success() || failure()
         with:
@@ -59,11 +55,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - run: npm ci
-
       - run: npm run lint
-
       - run: npm run build
-
       - run: npm test
-
       - run: npm run package

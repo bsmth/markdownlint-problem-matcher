@@ -1,7 +1,6 @@
 import { readFile } from "node:fs/promises";
-
 import { getInput, setFailed } from "@actions/core";
-import { issueCommand } from "@actions/core/lib/command.js"
+import { issueCommand } from "@actions/core/lib/command.js";
 
 import type { ProblemMatcherDocument } from "github-actions-problem-matcher-typings";
 
@@ -13,16 +12,13 @@ export async function run(): Promise<void> {
 
     switch (action) {
       case "add":
-        issueCommand(
-          "add-matcher",
-          {},
-          matcherFile,
-        );
+        issueCommand("add-matcher", {}, matcherFile);
         break;
 
       case "remove":
         const fileContents = await readFile(matcherFile, { encoding: "utf8" });
-        const problemMatcherDocument: ProblemMatcherDocument = JSON.parse(fileContents);
+        const problemMatcherDocument: ProblemMatcherDocument =
+          JSON.parse(fileContents);
         const problemMatcher = problemMatcherDocument.problemMatcher[0];
 
         issueCommand(
