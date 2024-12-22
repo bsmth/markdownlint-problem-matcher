@@ -1,4 +1,5 @@
 version: 2
+
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -19,16 +20,6 @@ updates:
     schedule:
       interval: "weekly"
     versioning-strategy: "increase"
-    groups:
-      actions:
-        patterns:
-          - "@actions/*"
-      jest:
-        patterns:
-          - "@types/jest"
-          - "jest"
-          - "jest-*"
-          - "ts-jest"
     labels:
       - "automated pr"
       - "dependencies"
